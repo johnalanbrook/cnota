@@ -1,0 +1,9 @@
+Implementation of the [nota](https://www.crockford.com/nota.html) format and [kim](https://www.crockford.com/kim.html) in C, with quickjs bindings included.
+
+# nota usage
+
+This library does no allocations for you. The read and write arrays are given a buffer and return a pointer to the next position in the buffer after the read of write.
+
+# kim usage
+
+Kim encodes or decodes from utf-8 encoded string
