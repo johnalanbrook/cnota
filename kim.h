@@ -2,7 +2,7 @@
 #define KIM_H
 
 // write number of runes from a kim stream int a utf8 stream
-void utf8_to_kim(char **utf, char **kim);
+void utf8_to_kim(const char **utf, char **kim);
 
 // write number of runes from a kim stream int a utf8 stream
 void kim_to_utf8(char **kim, char **utf, int runes);
@@ -11,7 +11,7 @@ void kim_to_utf8(char **kim, char **utf, int runes);
 int utf8_bytes(char c);
 
 // Return the number of runes in a utf8 string
-int utf8_count(char *utf8);
+int utf8_count(const char *utf8);
 
 #ifdef KIM_IMPLEMENTATION
 
@@ -21,7 +21,7 @@ int utf8_count(char *utf8);
 
 int decode_utf8(char **s);
 void encode_utf8(char **s, int code);
-void encode_kim(char **s, int code);
+static void encode_kim(char **s, int code);
 int decode_kim(char **s);
 
 int utf8_bytes(char c)
@@ -31,12 +31,11 @@ int utf8_bytes(char c)
   return bytes-24;
 }
 
-int utf8_count(char *utf8)
+int utf8_count(const char *utf8)
 {
   int count = 0;
-  char *p = utf8;
 
-  while(*s) {
+  while(*utf8) {
     count++;
     utf8 += utf8_bytes(*utf8);
   }
@@ -106,10 +105,11 @@ int decode_kim(char **s)
   return rune;
 }
 
-void utf8_to_kim(char **utf, char **kim)
+void utf8_to_kim(const char **utf, char **kim)
 {
-  while (**utf)
-    encode_kim(kim, decode_utf8(utf));
+  char * str = *utf;
+  while (*str)
+    encode_kim(kim, decode_utf8(&str));
 }
 
 void kim_to_utf8(char **kim, char **utf, int runes)

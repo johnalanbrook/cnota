@@ -1,5 +1,6 @@
 #include "quickjs.h"
 
+#define KIM_IMPLEMENTATION
 #define NOTA_IMPLEMENTATION
 #include "nota.h"
 
